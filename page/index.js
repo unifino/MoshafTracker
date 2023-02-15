@@ -29,6 +29,12 @@
                 pos: [ 'Home' ],
                 func: "mini_doa"
             },
+            fifty: {
+                name: 'خمسین',
+                obj: null,
+                pos: [ 'Home' ],
+                func: "today_50"
+            },
             Home: {
                 name: 'خانه',
                 obj: null,
@@ -39,7 +45,7 @@
             Home_Bottom: {
                 name: 'خانه',
                 obj: null,
-                h: 7370,
+                h: 20370,
                 pos: [ 'Page' ],
                 func: "home"
             },
@@ -53,7 +59,7 @@
                 x: 0,
                 y: 50,
                 w: 192,
-                h: 490 - 100 + 7000,
+                h: 490 - 100 + 20000,
                 text: "الله",
                 color: 0xeeeeee,
                 text_size: 24,
@@ -124,44 +130,41 @@
 
         // .. Quran
         quran () {
-
             // .. clean
             this.clean();
-
             // ..  set new data
             this.screenData = "\n\nUnder Construction ...";
-
             // .. new set of` Buttons
             this.buttonManger( "Page" );
-
         }
 
         // .. random page
         rand_page () {
-
             // .. clean
             this.clean();
-
             // ..  set new data
             this.screenData = this.saheb();
-
             // .. new set of` Buttons
             this.buttonManger( "Page" );
+        }
 
+        today_50 () {
+            // .. clean
+            this.clean();
+            // ..  set new data
+            this.screenData = this.saheb( 50 );
+            // .. new set of` Buttons
+            this.buttonManger( "Page" );
         }
 
         // .. random page
         mini_doa () {
-
             // .. clean
             this.clean();
-
             // ..  set new data
             this.screenData = Mini[0];
-
             // .. new set of` Buttons
             this.buttonManger( "Page" );
-
         }
 
         // .. Update Screen Data
@@ -172,14 +175,23 @@
         }
 
         // ..  get a random Page
-        saheb () {
+        saheb ( limit=0 ) {
             // .. get current Time
             let saat = new Date();
             // .. calculate random page
             let rand_page = (saat.getTime() /10) % Q.length;
             // .. build data
-            let data = "";
-            data += Q[ rand_page ].replace( /,/g, " \n\n*******************\n\n " );
+            let data = "" + limit;
+            data += Q[ rand_page ];
+            if ( limit ) {
+                let tmp_i = 0;
+                while ( data.split(",").length < 50 ) {
+                    tmp_i++;
+                    data += Q[ rand_page + tmp_i ];
+                }
+                data = data.split(",").slice(0,50).join(",");
+            }
+            data = data.replace( /,/g, " \n\n*******************\n\n " );
             // .. replace special parts
             data = data.replace( /A/g, Q[0].split( "," )[0] );
             data = data.replace( "X", "^^^^^^^^^^^^^^^" );

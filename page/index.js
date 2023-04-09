@@ -48,13 +48,13 @@
                 pos: [ 'Page' ],
                 func: "home"
             },
-            Home_Bottom: {
-                name: 'خانه',
-                obj: null,
-                h: 770,
-                pos: [ 'Page' ],
-                func: "home"
-            },
+            // Home_Bottom: {
+            //     name: 'خانه',
+            //     obj: null,
+            //     h: 770,
+            //     pos: [ 'Page' ],
+            //     func: "home"
+            // },
             Next_Bottom: {
                 name: "...",
                 obj: null,
